@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block titulo %}
+<title>Posts - Vídeos</title>
+{% endblock %}
+
+{% block conteudo %}
+<section class="page-section conteudo">
+    <div class="container">
+        <div class="text-center">
+            <h1>Postagens | {{ request.user.first_name }}</h1>
+        </div>
+        <hr>
+        <div class="text-center">
+            <div class="row">
+                {% for post in object_list %}
+                <div style="text-align: center;" class="col-md-4">
+                    <br>
+                    <div class="card">
+                        <video style="max-height: 600px;" class="embed-responsive embed-responsive-16by9 galeria-img" controls="controls" src="{{ post.video.url }}"></video>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.cliente.first_name  }} | {{ post.data }}</h5>
+                            <p>{{ post.legenda }}</p>
+                            <div class="text-center">
+                                <a href="{% url 'video' post.id %}" class="btn btn-danger">Ver post <i class="fas fa-eye"></i></a>
+                                <a href="{{ post.video.url }}" download="{{ post.video.url }}" class="btn btn-info">Download <i class="fas fa-download"></i></a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <br>
+                <div class="container">
+                    <div class="text-center">
+                        <h4>Nenhum vídeo para postar! <i class="fas fa-sad-tear"></i></h4>
+                    </div>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

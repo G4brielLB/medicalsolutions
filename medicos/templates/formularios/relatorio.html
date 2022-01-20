@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{%load static%}
+
+{%block titulo%}
+<title>Relatório | Briefing - Identidade Visual</title>
+{%endblock%}
+
+{% block conteudo %}
+<section class="page-section conteudo">
+    <div class="container">
+        <div class="text-center">
+            {% if request.user.groups.all.0.name == 'Administradores' %}
+            <h2>Relatório | Briefing - Identidade Visual</h2>
+            <hr>
+        </div>
+        {% for titulo, relatorios in object_list.items %}
+        <a style="color: black;" href="{% url 'relatorio_detalhe' relatorios.id %}"><h3>{{ titulo }} | Identidade Visual</h3></a>
+            <br>
+            {% for perguntas, respostas in relatorios.items %}
+            {% if perguntas == 'id' or perguntas == 'cliente' %}
+
+            {% else %}
+            <h6>{{ perguntas }}</h6>
+            <p>{{ respostas }}</p>
+            {% endif %}
+            {% endfor %}
+            <hr>
+            {% empty %}
+            <div class="text-center">
+                <h3>Nenhum formulário preenchido até agora!</h3>
+            </div>
+            {% endfor %}
+
+
+        
+        {% else %}
+        <div class="text-center">
+            <h3>Nada por aqui...</h3>
+        </div>
+        <p style="font-size: large; font-weight: bolder;">Você não tem autorização para acessar essa página ou ocorreu algum erro.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

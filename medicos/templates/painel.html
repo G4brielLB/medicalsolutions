@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block titulo %}
+<title>Painel do Cliente</title>
+{% endblock %}
+
+{% block conteudo %}
+<!--Conteúdo-->
+<section class="page-section conteudo">
+    <div class="container">
+        <div class="text-center">
+            <h1>Painel do Cliente</h1>
+        </div>
+        <div class="text-center">
+            <div class="row">
+                <div style="text-align: center;" class="col-md-6">
+                    <br>
+                    <div class="card">
+                        <img class="galeria-img" src="{% static 'img/redessociais.jpg' %}" alt="Redes sociais">
+                        <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            <a href="{% url 'posts' %}" class="btn btn-lg" style="color: #040229;">Posts da semana <i class="fas fa-share-square"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center;" class="col-md-6">
+                    <br>
+                    <div class="card">
+                        <img class="galeria-img" src="{% static 'img/calendario.png' %}" alt="Calendário para programação da semana">
+                        <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            <a href="{% url 'calendario' %}" class="btn btn-lg" style="color: #040229;">Link com programação <i class="fas fa-calendar-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center;" class="col-md-6">
+                    <br>
+                    <div class="card">
+                        <img class="galeria-img" src="{% static 'img/marketing.png' %}" alt="Marketing">
+                        <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            <a href="" class="btn btn-lg" style="color: #040229;">Evoulução e Estratégias de Marketing <i class="fas fa-bullhorn"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!--
+                <div style="text-align: center;" class="col-md-6">
+                    <br>
+                    <div class="card">
+                        <img class="galeria-img" src="{% static 'img/trafego.jpg' %}" alt="Tráfego pago">
+                        <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            <a href="" class="btn btn-lg" style="color: #040229;">Link tráfego pago <i class="fas fa-comment-dollar"></i></a>
+                        </div>
+                    </div>
+                </div>
+                -->
+                <div style="text-align: center;" class="col-md-6">
+                    <br>
+                    <div class="card">
+                        <img class="galeria-img" src="{% static 'img/formulario.jpg' %}" alt="Formulário">
+                        <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            {% for briefing in object_list  %}
+                            <a href="{% url 'editar_briefing' briefing.id %}" style="color: #040229;" class="btn btn-lg">Briefing - Identidade Visual <i class="fas fa-clipboard-list"></i></a>
+                            <!--<li>{{ briefing }} <a class="btn btn-warning" href="{% url 'editar_briefing' briefing.id %}">Editar <i class="fas fa-edit"></i></a></li>-->
+                            {% empty %}
+                            <a href="{% url 'briefing' %}" style="color: #040229;" class="btn btn-lg">Briefing - Identidade Visual <i class="fas fa-clipboard-list"></i></a>
+                            {% endfor %}
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

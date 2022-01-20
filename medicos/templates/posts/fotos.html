@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block titulo %}
+<title>Posts - Fotos</title>
+{% endblock %}
+
+{% block conteudo %}
+<section class="page-section conteudo">
+    <div class="container">
+        <div class="text-center">
+            <h1>Postagens | {{ request.user.first_name }}</h1>
+        </div>
+        <hr>
+        <div class="text-center">
+            <div class="row">
+                {% for post in object_list %}
+                <div style="text-align: center;" class="col-md-4">
+                    <br>
+                    <div class="card">
+                        <img class="galeria-img" src="{{ post.imagem.url }}" alt="Responsive image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.cliente.first_name  }} | {{ post.data }}</h5>
+                            <p><input type="text" name="legenda" id="legenda" readonly value="{{ post.legenda }}" style="border: transparent; width: 100%;"></p>
+                            <br>
+                            <a href="{% url 'foto' post.id %}" class="btn btn-danger">Ver post <i class="fas fa-eye"></i></a>
+                            <a href="{{ post.imagem.url }}" download="{{ post.imagem.url }}" class="btn btn-info">Download <i class="fas fa-download"></i></a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <br>
+                <div class="container">
+                    <div class="text-center">
+                        <h4>Nenhuma foto para postar! <i class="fas fa-sad-tear"></i></h4>
+                    </div>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    const legenda = document.getElementById("legenda");
+    const btnCopy = document.getElementById("btnCopy");
+
+    btnCopy.onclick = function () {
+        // Selecionar o texto
+        legenda.select();
+
+        // Copiar o texto
+        document.execCommand("Copy");
+    };
+</script>
+{% endblock %}
+

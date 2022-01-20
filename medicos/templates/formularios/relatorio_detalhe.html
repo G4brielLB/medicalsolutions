@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{%load static%}
+
+{%block titulo%}
+<title>Relatório | Briefing - Identidade Visual</title>
+{%endblock%}
+
+{% block conteudo %}
+<section class="page-section conteudo">
+    <div class="container">
+        <div class="text-center">
+        {% if request.user.groups.all.0.name == 'Administradores' %}
+            <h2>Relatório | Briefing - Identidade Visual</h2>
+            <hr>
+        </div>
+        <h4>{{relatorio.nome}} {{relatorio.sobrenome}}</h4>
+        {% for k, v in relatorio.items %}
+            {% if k in 'idsobrenomecliente' %}
+            
+            {{ pass }}
+
+            {% else %}
+            <h6>{{k}}</h6>
+            <p>{{v}}</p>
+            {% endif %}
+        {%endfor%}
+        {% else %}
+        <div class="text-center">
+            <h3>Nada por aqui...</h3>
+        </div>
+        <p style="font-size: large; font-weight: bolder;">Você não tem autorização para acessar essa página ou ocorreu algum erro.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

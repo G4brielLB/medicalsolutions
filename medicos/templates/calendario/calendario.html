@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block titulo %}
+<title>Calendário</title>
+{% endblock %}
+
+{% block conteudo %}
+<section class="page-section conteudo">
+    <div class="container">
+        <div class="text-center">
+            <h1>Calendário | {{ request.user.first_name }}</h1>
+        </div>
+        <hr>
+        <div class="text-center">
+        {% for calendario in object_list %}
+                <div>
+                    <br>
+                    <div class="card mx-5">
+                        <h5 class="m-3 card-title">Programação {{ request.user.first_name }} | {{ calendario.data }}</h5>
+                        <div class="card-body">
+                            <p class="mx-3">{{ calendario.programacao }}</p>
+                            {% if calendario.video != None and calendario.foto != None %}
+                                <a class="btn btn-info" href="{% url 'foto' calendario.foto.id %}">Ver foto</a>
+                                <a class="btn btn-info" href="{% url 'video' calendario.video.id %}">Ver vídeo</a>
+                            {% elif calendario.foto != None %}
+                                <a class="btn btn-info" href="{% url 'foto' calendario.foto.id %}">Ver foto</a>
+                            {% elif calendario.video != None %}
+                                <a class="btn btn-info" href="{% url 'video' calendario.video.id %}">Ver vídeo</a>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                    <h3>Nada programado por enquanto!</h3>
+                {% endfor %}
+        </div>
+    </div>
+    
+</section>
+{% endblock %}

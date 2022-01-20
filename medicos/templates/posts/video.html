@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block titulo %}
+<title>Post - Foto</title>
+{% endblock %}
+
+<style>
+    .input {
+  border: #fff;
+  height: 15rem;
+}
+</style>
+
+{% block conteudo %}
+<section class="page-section conteudo">
+    <div class="container">
+        <!--
+        <a href="{% url 'fotos' %}" style="background-color: #040229; color: white;" class="btn my-3"><i class="fas fa-arrow-left"></i> Voltar</a>
+        -->
+        <div class="text-center">
+            <h1>Post {{ video.cliente.first_name }} | {{ video.data }}</h1>
+            <hr>
+        </div>
+        <div class="text-center">
+            <div class="row">
+                <div style="text-align: center;" class="col-md-6">
+                    <br>
+                    <div class="text-center my-auto mx-3" style="height: 90%;">
+                        <video style="max-height: 90%; max-width: 100%;" class="embed-responsive embed-responsive-16by9" controls="controls" src="{{ video.video.url }}"></video>
+                        <!--<video style="max-width: 100%; max-height: 90%;" src="{{ video.video.url }}"></video>-->
+                        <br>
+                        <br>
+                        <a href="{{ video.video.url }}" download="{{ video.video.url }}" class="btn btn-info">Download</a>
+                    </div>
+                </div>
+                <div  style="text-align: center;" class="col-md-6">
+                    <br>
+                    <div class="text-center my-auto mx-3" style="height: 90%;">
+                        <h4>Legenda: <a class="btn" id="btnCopy"><i class="far fa-copy"></i></a></h4>
+                        
+                        <textarea readonly style="border: 1px transparent;" name="myText" id="myText" cols="30" rows="10">{{ video.legenda }}</textarea>
+                    </div>
+                </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    const myText = document.getElementById("myText");
+    const btnCopy = document.getElementById("btnCopy");
+
+    btnCopy.onclick = function () {
+        // Selecionar o texto
+        myText.select();
+
+        // Copiar o texto
+        document.execCommand("Copy");
+    };
+</script>
+{% endblock %}

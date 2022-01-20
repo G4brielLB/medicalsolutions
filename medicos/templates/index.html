@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        {% block titulo %}
+        <title>Página Inicial</title>
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{% static 'img/logo.jpeg' %}" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet"
+            type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+
+    </head>
+<body>
+{% block header %}
+<!--Header-->
+<header class="masthead conteudo">
+    <div class="container">
+        <div class="masthead-heading">Medical Solutions</div>
+        <a style="background-color: #040229; color: white;" class="btn btn-xl text-uppercase js-scroll-trigger" href="painel">Acessar</a>
+    </div>
+</header>
+{% endblock %}
+{% block conteudo %}
+<!--Conteúdo-->
+<section class="page-section conteudo" id="sobre">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <span class="fa-stack fa-4x">
+                    <i style="color: #040229;" class="fas fa-circle fa-stack-2x"></i>
+                    <i class="far fa-id-badge fa-stack-1x fa-inverse"></i>
+                </span>
+                <br>
+                <br>
+                <h4 class="my-3">
+                    <a class="btn btn-lg" style="background-color: #040229; color: white;" href="{% url 'posts' %}">Posts</a>
+                </h4>
+            </div>
+            <div class="col-md-4">
+                <span class="fa-stack fa-4x">
+                    <i style="color: #040229;" class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-calendar-alt fa-stack-1x fa-inverse"></i>
+                </span>
+                <br>
+                <br>
+                <h4 class="my-3">
+                    <a class="btn btn-lg" style="background-color: #040229; color: white;" href="{% url 'calendario' %}">Programação</a>
+                </h4>
+            </div>
+            <div class="col-md-4">
+                <span class="fa-stack fa-4x">
+                    <i style="color: #040229;" class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-bullhorn fa-stack-1x fa-inverse"></i>
+                </span>
+                <br><br>
+                <h4 class="my-3">
+                    <a class="btn btn-lg" style="background-color: #040229; color: white;" href="">Marketing</a>
+                </h4>
+            </div>
+            <!--<div class="col-md-3">
+                <span class="fa-stack fa-4x">
+                    <i style="color: #040229;" class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-comment-dollar fa-stack-1x fa-inverse"></i>
+                </span>
+                <br><br><br><br>
+                <h4 class="my-3">
+                    <a href="{%}"></a>
+                    <button type="button" class="btn btn-lg" style="background-color: #040229; color: white;">Formulários</button>
+                </h4>
+            </div>
+        -->
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block rodape %}
+<hr>
+<footer class="footer py-3">
+    <div class="container">
+        <div class="row align-items-center">
+            <div style="font-weight: bolder; color: #040229"  class="col-lg-4 text-lg-left">Copyright © Medical Solutions</div>
+            <div class="col-lg-4 my-3 my-lg-0">
+                <a style="font-weight: bolder; color: #040229;" class="btn mx-2" href="https://www.instagram.com/medicalsolutions_/"><i class="fab fa-instagram"> </i> medicalsolutions_</a>
+                <br>
+                <a style="font-weight: bolder; color: #040229" class="btn mx-2" href="https://api.whatsapp.com/send?phone=5586995330067&text=Ol%C3%A1,%20tenho%20interesse%20em%20conhecer%20os%20servi%C3%A7os%20da%20Medical%20Solutions"><i class="fab fa-whatsapp"> </i> Fale Conosco!</a>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock %}
+</body>
+</html>

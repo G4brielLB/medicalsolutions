@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block titulo %}
+<title>Formulários</title>
+{% endblock %}
+
+{% block conteudo %}
+<section class="page-section conteudo">
+    <div class="container" style="height: 30rem;">
+        <div class="text-center">
+            <h1>Formulários</h1>
+            <hr>
+        </div>
+        <h3>Responder:</h3>
+        <br>
+        <ul>
+            <li><a style="color: black;" href="{% url 'briefing' %}"><h4>Briefing | Identidade Visual <a href="{% url 'briefing' %}" class="btn btn-success"><i class="fas fa-pen-alt"></i></a></h4></a></li>
+            <br>
+        </ul>
+        <h3>Editar:</h3>
+        <br>
+        <ul>
+            {% for briefing in object_list  %}
+            <li>{{ briefing }} <a class="btn btn-warning" href="{% url 'editar_briefing' briefing.id %}">Editar <i class="fas fa-edit"></i></a></li>
+            <br>
+            {% empty %}
+            <li>
+                <h4>Nenhum formulário respondido por enquanto!</h4>
+            </li>
+            br
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endblock %}
+
+
+

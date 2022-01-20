@@ -1,0 +1,49 @@
+{% extends "base.html"%}
+
+{% load static %}
+
+{%load crispy_forms_tags%}
+
+{%block titulo%}
+<title>Alterar senha</title>
+{%endblock%}
+
+{% block header %}
+<header class="masthead conteudo">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 mx-auto">
+        
+                {% if request.user.is_authenticated %}
+                <div class="card">
+                    <br>
+                    <h3 style="color: #040229;">Alterar senha</h3>
+                
+                <div class="card-body">
+                    <form style="color: #040229;" action="" method="POST">
+                
+                        {% csrf_token %}
+                    
+                        {{ form|crispy }}
+                    
+                        <button type="submit" style="background-color: #040229; color: white;" class="btn mt4">Salvar</button>
+                    </form>
+                </div>
+                </div>
+        
+                {% else %}
+                <a href="">
+                    <i class="fa fa-user-times" aria-hidden="true" style="color: red;"></i>
+                    <h2 style="color: red;">Ação não permitida</h2>
+                </a>
+                
+                <hr>
+                <p class="lead">
+                    <strong>Você não possui um usuário ativo!</strong>
+                </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}

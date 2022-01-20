@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block titulo %}
+<title>Postagens</title>
+{% endblock %}
+
+{% block conteudo %}
+<section class="page-section conteudo">
+    <div class="container">
+        <div class="text-center">
+            <h1>Posts</h1>
+        </div>
+        <div class="text-center">
+            <div class="row">
+                <div style="text-align: center;" class="col-md-6">
+                    <br>
+                    <div class="card">
+                        <img class="galeria-img" src="{% static 'img/postsfotos.jpg' %}" alt="Fotos Postados">
+                        <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            <a href="{% url 'fotos' %}" class="btn btn-lg" style="color: #040229;">Posts - Imagens <i class="fas fa-image"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center;" class="col-md-6">
+                    <br>
+                    <div class="card">
+                        <img class="galeria-img" src="{% static 'img/postsvideos.jpg' %}" alt="Likes para Videos">
+                        <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            <a href="{% url 'videos' %}" class="btn btn-lg" style="color: #040229;">Posts - Vídeos <i class="fas fa-photo-video"></i></a>
+                        </div>
+                    </div>
+                </div>
+    </div>
+</section>
+{% endblock %}

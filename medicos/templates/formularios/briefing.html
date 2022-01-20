@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{%load static%}
+
+{% load crispy_forms_tags %}
+
+{%block titulo%}
+<title>Briefing - Identidade Visual</title>
+{%endblock%}
+
+{% block conteudo %}
+<section class="page-section conteudo">
+    <div class="container">
+        <div class="text-center">
+            <h3>Briefing - Identidade Visual</h3>
+            <hr>
+        </div>
+        <form class="mr-4" action="" method="POST">
+        {% csrf_token %}
+        <br>
+        <div class="text-center">
+            <h3>Fase 1 | Sobre você</h3>
+        </div>
+        <br>
+        <ul>
+            {{form.nome|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.sobrenome|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.motivos|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.perfil|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.segmento|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.projeto_identidade|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.conta_profissional|as_crispy_field}}
+        </ul>
+        <br>
+        <br>
+        <div class="text-center">
+            <h3>Fase 2 | Sobre sua rede social</h3>
+        </div>
+        <br>
+        <ul>
+            {{form.rede_social|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.rede_profissional|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.rede_especial|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.slogan|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.concorrentes|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.concorrentes_oferecem|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.missoes|as_crispy_field}}
+        </ul>
+        <br>
+        <br>
+        <div class="text-center">
+            <h3>Fase 3 | Sobre a persona - Cliente Ideal</h3>
+        </div>
+        <br>
+        <ul>
+            {{form.faixa_etaria_social|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.genero|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.quem|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.descricao_clientes|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.encontrar_clientes|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.logotipo_clientes|as_crispy_field}}
+        </ul>
+        <br>
+        <br>
+        <div class="text-center">
+            <h3>Fase 4 | Personalidade da Marca</h3>
+        </div>
+        <br>
+        <ul>
+            {{form.personalidade|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.palavras|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.pessoa|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.caracteristicas|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.cor|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.nao_cor|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.nao_elemento|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.aspectos|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.consideracoes|as_crispy_field}}
+        </ul>
+        <ul>
+            {{form.referencias|as_crispy_field}}
+        </ul>
+        <div class="text-right">
+            <input style="text-align: right;" type="submit" value="Salvar">
+        </div>
+        
+        </form>
+    </div>
+</section>
+{%endblock%}

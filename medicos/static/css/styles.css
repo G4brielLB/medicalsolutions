@@ -10506,3 +10506,14 @@ section#contact form#contactForm :-ms-input-placeholder {
   flex: 1 0 auto;
 }
 
+.imagem {
+  display: table-cell;
+  float: left;
+}
+
+.texto {
+  display: table-cell;
+  float: left;
+  width: 300px;
+  margin-left: 20px;
+}

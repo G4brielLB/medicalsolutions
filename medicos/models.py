@@ -14,6 +14,8 @@ from django.contrib.auth import get_user_model
 
 # Create your models here.
 
+# Lista com todas as perguntas do formulário de Identidade Visual
+# id, nome, sobrenome também fazem parte do formulário
 perguntas = [
     "id", "nome", "sobrenome",
     "Quais os motivos que te levaram a abrir um perfil profissional? ",
@@ -35,6 +37,7 @@ perguntas = [
     "De que forma você espera que seu cliente encontre seu instagram?",
     "Quais os locais você acredita que seu cliente mais verá o logotipo do seu instagram. Acrescente por ordem de importância.",
     "Se seu instagram fosse uma pessoa como ela seria? Escolha quantas opções julgar necessário: ",
+    "Outra: ",
     "Dessas palavras que você escolheu, cite 3 que você considera mais forte. ",
     "Se seu instagram fosse uma pessoa, como ele seria? ",
     "Se necessário, adicione mais algumas características. ",
@@ -48,6 +51,8 @@ perguntas = [
 ]
 
 """
+DICIONÁRIO DE PERGUNTAS COM AS RESPOSTAS VAZIAS, PARA SEREM ADICIONADAS FUTURAMENTE
+SEM FUNCIONALIDADE ATUALMENTE
 
 perguntas = {
     "id": "",
@@ -83,6 +88,9 @@ perguntas = {
     "Tem alguma referência?": ""
 }
 """
+
+
+# Transforma um Queryset (eu acho kkkk) em um dicionário
 def to_dict(Briefing):
     opts = Briefing._meta
     data = {}
@@ -93,10 +101,14 @@ def to_dict(Briefing):
 
     return data
 
+
+# Classe das fotos para adicionar no banco de dados
+# Toda foto tem seu cliente (usuário), nome (personalizado), a imagem, a data de postagem, e a legenda para ser postada
+# Quem adiciona é o administrador 
 class Foto(models.Model):
     cliente = models.ForeignKey(User, on_delete=models.PROTECT, null=False)
     nome = models.CharField(max_length=50, default=User)
-    imagem = models.ImageField(null=False, blank=False)
+    imagem = models.ImageField(null=False, blank=False, help_text='Essa imagem deve ser igual a Fotos #1')
     data = models.DateField(blank=True)
     legenda = models.TextField(max_length=2200)
 
@@ -104,6 +116,20 @@ class Foto(models.Model):
         return (f'Postagem {self.nome} | {self.data}')
 
 
+# Classe das múltiplas fotos (carrosel de fotos) para adicionar no banco de dados
+# 'foto' é uma chave estrangeira (ForeignKey) que conecta com a foto principal (class Foto), 'imagem' são as múltiplas imagens para enviar.
+# Quem adiciona é o administrador 
+class FotosPost(models.Model):
+    foto = models.ForeignKey(Foto, on_delete=models.CASCADE)
+    imagem = models.ImageField()
+
+    def __str__(self):
+        return (f'Postagem {self.foto.nome} | {self.foto.data}')
+
+
+# Classe dos vídeos para adicionar no banco de dados
+# Todo vídeo tem seu cliente (usuário), nome (personalizado), o vídeo, a data para postagem e a legenda para postagem
+# Quem adiciona é o administrador 
 class Video(models.Model):
     cliente = models.ForeignKey(User, on_delete=models.PROTECT, null=False)
     nome = models.CharField(max_length=50, default=User)
@@ -115,6 +141,10 @@ class Video(models.Model):
         return (f'Postagem {self.nome} | {self.data}')
 
 
+# Classe da programação do cliente (calendário) para adicionar no banco de dados
+# Toda programação tem seu cliente (usuário), a data programada,
+# A programação do dia referido (o que é para fazer), foto e/ou vídeo para redirecionar o cliente 
+# Quem adiciona é o administrador
 class Calendario(models.Model):
     cliente = models.ForeignKey(User, on_delete=models.PROTECT, null=False)
     data = models.DateField()
@@ -126,8 +156,7 @@ class Calendario(models.Model):
         return (f'Programação de {self.data} | {self.cliente}')
 
 
-
-
+# Tupla de escolha de gênero ("Resposta", "Nome que aparece na tela")
 GENERO_CHOICES = (
     ("Totalmente masculino", "Totalmente masculino"),
     ("Masculino predominante, pouco feminino", "Masculino predominante, pouco feminino"),
@@ -136,7 +165,7 @@ GENERO_CHOICES = (
     ("Totalmente feminino", "Totalmente feminino")
 )
 
-
+# Tupla de escolha de personalidade ("Resposta", "Nome que aparece na tela")
 PERSONALIDADE_CHOICES = (
     ("Séria", "Séria"), ("Alegre", "Alegre"), ("Conservadora", "Conservadora"), ("Nerd", "Nerd"),
     ("Discreta", "Discreta"), ("Sensível", "Sensível"), ("Aventureira", "Aventureira"), ("Tradicional", "Tradicional"),
@@ -163,6 +192,7 @@ PERSONALIDADE_CHOICES = (
     ("Nostálgica", "Nostálgica"), ("Outro", "Outra")
 )
 
+# Tupla de escolha de aspectos ("Resposta", "Nome que aparece na tela")
 ASPECTOS_CHOICES = (
     ("Séria", "Séria"), ("Conservadora", "Conservadora"), ("Aconchegante", "Aconchegante"), ("Moderna", "Moderna"),
     ("Sofisticada", "Sofisticada"), ("Vibrante", "Vibrante"), ("Retrô", "Retrô"), ("Pesada", "Pesada"),
@@ -174,6 +204,8 @@ ASPECTOS_CHOICES = (
 )
 
 User = get_user_model()
+# Classe para o Briefing - Identidade Visual
+# Cada variável corresponde a uma resposta do formulário
 class Briefing(models.Model):
     # Fase 1
     nome = models.CharField(max_length=50)
@@ -200,6 +232,7 @@ class Briefing(models.Model):
     logotipo_clientes = models.CharField(verbose_name="Quais os locais você acredita que seu cliente mais verá o logotipo do seu instagram. Acrescente por ordem de importância.", max_length=500)
     # Fase 4
     personalidade = MultiSelectField(verbose_name="Se seu instagram fosse uma pessoa como ela seria? Escolha quantas opções julgar necessário:" ,max_length=1500, choices=PERSONALIDADE_CHOICES)
+    outra = models.CharField(verbose_name="Outra", max_length=100, blank=True, null=True)
     palavras = models.CharField(verbose_name="Dessas palavras que você escolheu, cite 3 que você considera mais forte.", max_length=64)
     pessoa = models.CharField(verbose_name="Se seu instagram fosse uma pessoa, como ele seria?", max_length=500)
     caracteristicas = models.CharField(verbose_name="Se necessário, adicione mais algumas características.", max_length=100, null=True, blank=True)
@@ -207,7 +240,7 @@ class Briefing(models.Model):
     nao_cor = models.CharField(verbose_name="Há alguma cor que você NÃO queira na sua marca?", max_length=100)
     nao_elemento = models.CharField(verbose_name="Há algum elemento que você NÃO queira na sua marca?", max_length=100)
     aspectos = MultiSelectField(verbose_name="Pensando apenas em aspectos visuais, selecione alguns atributos que têm alguma relação com a sua marca.", max_length=500, choices=ASPECTOS_CHOICES)
-    consideracoes = models.CharField(verbose_name="Fique a vontade para dizer mais sobre a sua empresa ou dar considerações finais.", max_length=500)
+    consideracoes = models.CharField(verbose_name="Fique a vontade para dizer mais sobre a sua empresa ou dar considerações finais.", max_length=500, null=True, blank=True)
     referencias = models.CharField(verbose_name="Tem alguma referência?", max_length=500, help_text="Referências de imagens ou de marcas que você gosta é muito válido, embora nós iremos montar nossa própria identidade visual.")
     cliente = models.ForeignKey(User, on_delete=models.PROTECT, default=User, null=True)
     # cliente = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
@@ -217,9 +250,8 @@ class Briefing(models.Model):
         return (f'{self.nome} {self.sobrenome} | Briefing - Identidade Visual')
 
     
-
-
-
+# Função que organiza as perguntas alinhadas com as respostas, de forma a ficar 
+# Com as letras maiúsculas nos espaços corretos, tudo alinhado e retornando um dicionário
 def organizar(briefings):
     briefings = briefings
     listas = dict()
